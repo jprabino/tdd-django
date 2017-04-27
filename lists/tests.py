@@ -1,9 +1,11 @@
+from django.core.urlresolvers import resolve
+from lists.views import home_page
 from django.test import TestCase
 
 # Create your tests here.
 
-class TestDepruebaDelTestEngine(TestCase):
+class HomePageTest(TestCase):
 
-    def test_nose_sumar(self):
-
-        self.assertEqual(1+1, 3)
+    def test_root_url_resolves_to_home_page_view(self):
+        found = resolve('/')
+        self.assertEqual(found.func, home_page)
