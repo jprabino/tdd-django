@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 import unittest
 
 
@@ -15,16 +17,27 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get('http://localhost:8000')
 
+        # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
-        self.fail('Finish the Test!')
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To-Do', header_text)
 
         #Ingresar un item nuevo
-
+        inputbox  = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(inputbox.get_attribute('placeholder'),
+                         'Ingresar un nuevo item a la lista'
+                         )
         #Escribe "comprar tacho de basura" en un text box
-
+        inputbox.send_keys('comprar tacho de basura')
         #cuando apreta 'Enter' se agraga el item con la leyenda
         # 1: Comprar tacho de basura
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
+        table  = self.browser.find_element_by_id('id_list_table')
+        rows  = table.find_elements_by_tag_name('tr')
+        self.assertTrue(any(row.text == '1: comprar tacho de basura' for row in rows))
+        self.fail('Tests terminados!')
         #hay otro text-box que la invita a agregar otro item.
         #ingresa: "Tirar la basura".
 
