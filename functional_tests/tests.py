@@ -4,7 +4,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 import time
 
-MAX_WAIT = 3
+MAX_WAIT = 10
 
 class NewVisitorTest(LiveServerTestCase):
 
@@ -22,8 +22,8 @@ class NewVisitorTest(LiveServerTestCase):
                 rows = table.find_elements_by_tag_name('tr')
                 self.assertIn(row_text, [row.text for row in rows])
                 return
-            except (AssertionError,WebDriverException) as e:
-                if time.time()-start_time>MAX_WAIT:
+            except (AssertionError, WebDriverException) as e:
+                if time.time()-start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.2)
 
@@ -45,7 +45,6 @@ class NewVisitorTest(LiveServerTestCase):
         # cuando apreta 'Enter' se agraga el item con la leyenda
         # 1: Comprar tacho de basura
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
         self.wait_for_row_in_list_table('1: comprar tacho de basura')
 
         # hay otro text-box que la invita a agregar otro item.
@@ -54,9 +53,8 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Tirar la basura')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
-
         self.wait_for_row_in_list_table('1: comprar tacho de basura')
+        print(self.browser.current_url)
         self.wait_for_row_in_list_table('2: Tirar la basura')
         # hay otro text-box para usar ingresar otro item.
         # ingresa: "Sacar la basura".
@@ -68,6 +66,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Al visitar ese URL su lista sigue estando ahi.
 
         # usuario satisfecho.
+
     def test_multiple_users_can_start_lists_at_different_urls(self):
 
         self.browser.get(self.live_server_url)
