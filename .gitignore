@@ -4,3 +4,4 @@ geckodriver.log
 *__pycache__*
 *.pyc
 functional_tests/__pycache__
+deploy_tools/logdeploy.txt
