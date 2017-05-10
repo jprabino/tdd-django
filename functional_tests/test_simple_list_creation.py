@@ -6,7 +6,6 @@ from selenium.webdriver.common.keys import Keys
 import os
 
 class NewVisitorTest(FunctionalTest):
-    @skip
     def test_can_start_a_list_for_one_user(self):
         self.browser.get(self.live_server_url)
 
