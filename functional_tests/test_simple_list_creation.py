@@ -17,7 +17,7 @@ class NewVisitorTest(FunctionalTest):
         # Ingresar un item nuevo
         inputbox = self.get_item_input_box()
         self.assertEqual(inputbox.get_attribute('placeholder'),
-                         'Ingresar un nuevo item a la lista'
+                         'Nueva Tarea a realizar'
                          )
         # Escribe "comprar tacho de basura" en un text box
         inputbox.send_keys('comprar tacho de basura')
@@ -45,7 +45,6 @@ class NewVisitorTest(FunctionalTest):
 
         # usuario satisfecho.
 
-    @skip
     def test_multiple_users_can_start_lists_at_different_urls(self):
 
         self.browser.get(self.live_server_url)

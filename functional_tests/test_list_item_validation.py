@@ -19,25 +19,32 @@ class ItemValidationTest(FunctionalTest):
         #                  'No se puede ingresar un item vacío'
         #                  ))
 
-        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_css_selector('.help-block').text,
-                                               'No se puede ingresar un item vacío'
-                                               ))
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_text:invalid'))
+        # self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_css_selector('.has-error').text,
+        #                                        'No se puede ingresar un item vacío'
+        #                                        ))
         #ahora reintenta con un item, y funciona
         self.get_item_input_box().send_keys('Comprar leche')
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector(
+            '#id_text:valid'
+        ))
         self.get_item_input_box().send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Comprar leche')
 
         #ahora reintenta con un espacio en blanco
         self.get_item_input_box().send_keys(Keys.ENTER)
 
-        #se recibe una alerta nueva
-        self.wait_for(lambda: self.assertEqual(
-            self.browser.find_element_by_css_selector('.has-error').text,
-            "No se puede ingresar un item vacío"
+        #el browser no va a tomar la lista ahora
+        self.wait_for_row_in_list_table('1: Comprar leche')
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector(
+            '#id_text:invalid'
         ))
 
         #finalmente ingresa correctamente
         self.get_item_input_box().send_keys('Make tea')
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector(
+            '#id_text:valid'
+        ))
         self.get_item_input_box().send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Comprar leche')
         self.wait_for_row_in_list_table('2: Make tea')
