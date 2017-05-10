@@ -24,6 +24,7 @@ def view_list(request, list_id):
     return render(request, 'list.html', {'list': list_, 'error': error})
 
 def new_list(request):
+    print ("new LIST", request)
     list_=List.objects.create()
     item = Item.objects.create(text=request.POST['item_text'], list=list_)
     try:
