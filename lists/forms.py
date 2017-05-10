@@ -1,6 +1,7 @@
 from django import forms
 from lists.models import Item
 EMPTY_ITEM_ERROR = 'No puede haber items vacíos'
+
 class ItemForm(forms.ModelForm):
 
     class Meta:
@@ -13,3 +14,7 @@ class ItemForm(forms.ModelForm):
         error_messages = {
                 'text': {'required': EMPTY_ITEM_ERROR}
         }
+
+    def save(self, for_list):
+        self.instance.list = for_list
+        return super().save()
