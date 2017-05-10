@@ -17,14 +17,14 @@ def view_list(request, list_id):
 
             item.full_clean()
             item.save()
-            return redirect(f'/lists/{list_.id}/')
+            return redirect(list_)
         except ValidationError:
             error = "No se puede ingresar un item vacío"
 
     return render(request, 'list.html', {'list': list_, 'error': error})
 
 def new_list(request):
-    list_=List.objects.create()
+    list_= List.objects.create()
     item = Item.objects.create(text=request.POST['item_text'], list=list_)
     try:
         item.full_clean()
@@ -33,4 +33,4 @@ def new_list(request):
         error = "No se puede ingresar un item vacío"
         return render(request, 'home.html', {'error': error})
 
-    return redirect(f'/lists/{list_.id}/')
+    return redirect(list_)
