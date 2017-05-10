@@ -18,7 +18,6 @@ class ItemValidationTest(FunctionalTest):
         self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
 
         #se refresca la pagina y muestra un error diciendo que debe ingresar un valor
-
         self.wait_for(lambda : self.assertEqual(self.browser.find_element_by_css_selector('.has-error').text,
                          'No se puede ingresar un item vacío'
                          ))

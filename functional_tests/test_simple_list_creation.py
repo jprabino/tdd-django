@@ -1,3 +1,5 @@
+from unittest import skip
+
 from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -8,7 +10,7 @@ STAGING_SERVER="10.210.8.206"
 os.environ['STAGING_SERVER']=STAGING_SERVER
 
 class NewVisitorTest(FunctionalTest):
-
+    @skip
     def test_can_start_a_list_for_one_user(self):
         self.browser.get(self.live_server_url)
 
@@ -48,6 +50,7 @@ class NewVisitorTest(FunctionalTest):
 
         # usuario satisfecho.
 
+    @skip
     def test_multiple_users_can_start_lists_at_different_urls(self):
 
         self.browser.get(self.live_server_url)
