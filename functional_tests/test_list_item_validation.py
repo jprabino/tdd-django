@@ -12,12 +12,17 @@ class ItemValidationTest(FunctionalTest):
 
         #se ingresa un valor vacio
         self.browser.get(self.live_server_url)
+        self.assertIn( 'Listillas', self.browser.title)
         self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
 
         #se refresca la pagina y muestra un error diciendo que debe ingresar un valor
-        self.wait_for(lambda : self.assertEqual(self.browser.find_element_by_css_selector('.has-error').text,
-                         'No se puede ingresar un item vacío'
-                         ))
+        # self.wait_for(lambda : self.assertEqual(self.browser.find_element_by_css_selector('.has-error').text,
+        #                  'No se puede ingresar un item vacío'
+        #                  ))
+
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_css_selector('.help-block').text,
+                                               'No se puede ingresar un item vacío'
+                                               ))
         #ahora reintenta con un item, y funciona
         self.browser.find_element_by_id('id_new_item').send_keys('Comprar leche')
         self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)

@@ -6,7 +6,7 @@ REPO_URL = 'https://github.com/jprabino/tdd-django.git'
 
 
 def deploy():
-    _URL = {env.host: "tdd-django-live.niuroweb.net"}
+    _URL = {env.host: "tdd-django.niuroweb.net"}
     site_folder = f'/home/{env.user}/sites/{_URL[env.host]}'
     source_folder = site_folder + '/source'
     _create_directory_structure_if_necessary(site_folder)
@@ -51,12 +51,6 @@ def _update_settings(source_folder, site_name):
 
 
 def _update_virtualenv(source_folder):
-#     proxy_config = """\nHTTP_PROXY=http://proxy.corp.globant.com:3128
-# export HTTP_PROXY
-# HTTPS_PROXY=http://proxy.corp.globant.com:3128
-# export HTTPS_PROXY"""
-    # append(f'/home/{env.user}/.bashrc', proxy_config)
-    # run(f'/home/{env.user}/.bashrc')
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + '/bin/pip'):
         run(f'python3.6 -m venv {virtualenv_folder}')
