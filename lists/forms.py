@@ -13,5 +13,3 @@ class ItemForm(forms.ModelForm):
         error_messages = {
                 'text': {'required': EMPTY_ITEM_ERROR}
         }
-    # item_text = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nueva Tarea a realizar',
-    #                                                           'class': 'form-control input-lg',}))
