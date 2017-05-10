@@ -5,10 +5,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import os
 
-MAX_WAIT = 3
-STAGING_SERVER="10.210.8.206"
-os.environ['STAGING_SERVER']=STAGING_SERVER
-
 class NewVisitorTest(FunctionalTest):
     @skip
     def test_can_start_a_list_for_one_user(self):
