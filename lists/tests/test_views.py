@@ -1,13 +1,15 @@
-import time
+from unittest.case import skip
+
 from django.core.urlresolvers import resolve
 from django.template.loader import render_to_string
 from django.utils.html import escape
 
-from lists.forms import ItemForm, EMPTY_ITEM_ERROR
+from lists.forms import ItemForm, EMPTY_ITEM_ERROR, DUPLICATE_ITEM_ERROR
 from lists.models import Item, List
 from lists.views import home_page
 from django.test import TestCase
 from django.http import HttpRequest
+
 
 # Create your tests here.
 
@@ -124,3 +126,15 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'list.html')
         expected_error = escape(EMPTY_ITEM_ERROR)
         self.assertContains(response, expected_error)
+
+    @skip
+    def test_duplicate_item_validation_errors_end_up_on_lists_page(self):
+
+        list1 = List.objects.create()
+        item1 = Item.objects.create(list=list1, text='textillo')
+        response = self.client.post(f'/lists/{list1.id}/', data={'text': 'textillo'})
+
+        expected_error = escape(DUPLICATE_ITEM_ERROR)
+        self.assertContains(response, expected_error)
+        self.assertTemplateUsed(response, 'list.html')
+        self.assertEqual(Item.objects.all())
