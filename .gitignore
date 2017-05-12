@@ -5,3 +5,5 @@ geckodriver.log
 *.pyc
 functional_tests/__pycache__
 deploy_tools/logdeploy.txt
+/superlists/superlists_var.py
+superlists/superlists_var.py
