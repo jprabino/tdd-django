@@ -4,7 +4,7 @@ from selenium.common.exceptions import WebDriverException
 import time
 import os
 
-MAX_WAIT = 3
+MAX_WAIT = 10
 # STAGING_SERVER="10.210.8.206"
 # #STAGING_SERVER='localhost:8000'
 # os.environ['STAGING_SERVER']=STAGING_SERVER
@@ -30,7 +30,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
                 if time.time() - start_time > MAX_WAIT:
                     raise e
-                time.sleep(0.3)
+                time.sleep(1)
 
     def wait_for_row_in_list_table(self, row_text):
         start_time = time.time()
@@ -43,7 +43,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             except (AssertionError, WebDriverException) as e:
                 if time.time()-start_time > MAX_WAIT:
                     raise e
-                time.sleep(0.1)
+                time.sleep(1)
 
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
