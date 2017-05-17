@@ -7,7 +7,7 @@ from .server_tools import reset_database
 MAX_WAIT = 10
 STAGING_SERVER="10.210.8.206"
 # #STAGING_SERVER='localhost:8000'
-os.environ['STAGING_SERVER']=STAGING_SERVER
+# os.environ['STAGING_SERVER']=STAGING_SERVER
 
 
 def wait(fn):
