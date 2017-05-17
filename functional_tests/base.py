@@ -3,11 +3,11 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 import time
 import os
-
+from .server_tools import reset_database
 MAX_WAIT = 10
 STAGING_SERVER="10.210.8.206"
 # #STAGING_SERVER='localhost:8000'
-os.environ['STAGING_SERVER']=STAGING_SERVER
+# os.environ['STAGING_SERVER']=STAGING_SERVER
 
 
 def wait(fn):
@@ -32,7 +32,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.staging_server = os.environ.get('STAGING_SERVER')
         if self.staging_server:
             setattr(self, 'live_server_url', 'http://' + self.staging_server)
-
+            reset_database(self.staging_server)
     def tearDown(self):
         self.browser.quit()
 

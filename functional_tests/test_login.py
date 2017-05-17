@@ -17,7 +17,7 @@ class LoginTest(FunctionalTest):
     def test_can_get_email_link_to_login(self):
 
         if self.staging_server:
-            test_email = 'edith.testuser@yahoo.com'
+            test_email = 'niuro.domotics@gmail.com'
         else:
             test_email = 'edith@example.com'
 
@@ -61,7 +61,7 @@ class LoginTest(FunctionalTest):
 
         email_id = None
         start = time.time()
-        inbox = poplib.POP3_SSL('pop.mail.yahoo.com')
+        inbox = poplib.POP3_SSL('pop.gmail.com')
         try:
             inbox.user(test_email)
             inbox.pass_(os.environ['GMAIL_PASSWORD'])
