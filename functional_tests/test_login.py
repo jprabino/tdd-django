@@ -17,7 +17,7 @@ class LoginTest(FunctionalTest):
     def test_can_get_email_link_to_login(self):
 
         if self.staging_server:
-            test_email = 'niuro.domotics@gmail.com'
+            test_email = 'niuro.domotics@yahoo.com'
         else:
             test_email = 'edith@example.com'
 

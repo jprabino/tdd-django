@@ -19,19 +19,12 @@ class NewVisitorTest(FunctionalTest):
         self.assertEqual(inputbox.get_attribute('placeholder'),
                          'Nueva Tarea a realizar'
                          )
-        # Escribe "comprar tacho de basura" en un text box
-        inputbox.send_keys('comprar tacho de basura')
-        # cuando apreta 'Enter' se agraga el item con la leyenda
-        # 1: Comprar tacho de basura
-        inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: comprar tacho de basura')
+        self.add_list_item('comprar tacho de basura')
 
         # hay otro text-box que la invita a agregar otro item.
         # ingresa: "Tirar la basura".
 
-        inputbox = self.get_item_input_box()
-        inputbox.send_keys('Tirar la basura')
-        inputbox.send_keys(Keys.ENTER)
+        self.add_list_item('Tirar la basura')
         self.wait_for_row_in_list_table('1: comprar tacho de basura')
         self.wait_for_row_in_list_table('2: Tirar la basura')
         # hay otro text-box para usar ingresar otro item.
@@ -48,11 +41,7 @@ class NewVisitorTest(FunctionalTest):
     def test_multiple_users_can_start_lists_at_different_urls(self):
 
         self.browser.get(self.live_server_url)
-        inputbox = self.get_item_input_box()
-        inputbox.send_keys('comprar tacho de basura')
-        inputbox.send_keys(Keys.ENTER)
-
-        self.wait_for_row_in_list_table('1: comprar tacho de basura')
+        self.add_list_item('comprar tacho de basura')
 
         current_user_list_url = self.browser.current_url
         self.assertRegex(current_user_list_url, '/lists/.+')
@@ -66,10 +55,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('Tirar la basura', page_text)
 
 
-        inputbox = self.get_item_input_box()
-        inputbox.send_keys('ir al dentista')
-        inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: ir al dentista')
+        self.add_list_item('ir al dentista')
 
         new_user_list_url  = self.browser.current_url
         self.assertRegex(new_user_list_url, '/lists/.+')

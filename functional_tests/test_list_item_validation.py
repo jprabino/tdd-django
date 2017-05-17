@@ -17,7 +17,6 @@ class ItemValidationTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.get_item_input_box().send_keys(Keys.ENTER)
 
-
         self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_text:invalid'))
 
         #ahora reintenta con un item, y funciona
@@ -50,9 +49,7 @@ class ItemValidationTest(FunctionalTest):
 
         self.browser.get(self.live_server_url)
 
-        self.get_item_input_box().send_keys('sacar fotos')
-        self.get_item_input_box().send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: sacar fotos')
+        self.add_list_item('sacar fotos')
 
         self.get_item_input_box().send_keys('sacar fotos')
         self.get_item_input_box().send_keys(Keys.ENTER)
@@ -64,9 +61,7 @@ class ItemValidationTest(FunctionalTest):
     def test_error_messages_are_cleared_on_input(self):
 
         self.browser.get(self.live_server_url)
-        self.get_item_input_box().send_keys('Banter too thick')
-        self.get_item_input_box().send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: Banter too thick')
+        self.add_list_item('Banter too thick')
         self.get_item_input_box().send_keys('Banter too thick')
         self.get_item_input_box().send_keys(Keys.ENTER)
 
