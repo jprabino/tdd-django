@@ -6,7 +6,7 @@ import time
 import os
 from datetime import datetime
 from .server_tools import reset_database
-MAX_WAIT = 10
+MAX_WAIT = 20
 STAGING_SERVER="10.210.8.206"
 # #STAGING_SERVER='localhost:8000'
 # os.environ['STAGING_SERVER']=STAGING_SERVER
@@ -27,7 +27,7 @@ def wait(fn):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
 
-                time.sleep(1)
+                time.sleep(2)
     return mod_function
 
 class FunctionalTest(StaticLiveServerTestCase):
